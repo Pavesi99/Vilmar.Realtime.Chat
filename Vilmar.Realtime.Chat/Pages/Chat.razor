@@ -1,0 +1,40 @@
+﻿@page "/Chat"        
+@using Microsoft.AspNetCore.SignalR.Client;
+
+<PageTitle>Chat</PageTitle>
+
+<h1>Chats</h1>
+
+<label>Envie uma mensagem</label>
+<input />
+<button onclick=@SendMessage>Enviar</button>
+
+<h5>Messages</h5> 
+<p>@time</p>
+
+@code {
+    private DateTime time;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var uri = "https://localhost:7039/chat";
+
+        await using var connection = new HubConnectionBuilder().WithUrl(uri).Build();
+
+        await connection.StartAsync();
+
+        await foreach (var date in connection.StreamAsync<DateTime>("Streaming"))
+        {
+            time = date;
+            Console.WriteLine(date);
+            StateHasChanged();
+
+        }
+    }
+
+    public void SendMessage()
+    {
+        
+    }
+}
