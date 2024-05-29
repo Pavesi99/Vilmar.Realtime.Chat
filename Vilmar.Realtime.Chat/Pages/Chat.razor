@@ -37,7 +37,7 @@
         {
             user = await UserManager.FindByNameAsync(userIdentity.Name);
         }
-        var uri = "https://vilmar.realtime.chat/chat";
+        var uri = "https://vilmar.realtime.chat:7039/chat";
 
         await using var connection = new HubConnectionBuilder().WithUrl(uri, (opts) =>
         {
