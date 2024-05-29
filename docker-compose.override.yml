@@ -4,10 +4,12 @@ services:
   vilmar.realtime.chat:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=https://+:7039;http://+:5173
     ports:
-      - "80"
-      - "443"
+      - 5173:5173
+      - 7039:7039
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on: 
+      - vilmar.postgres
