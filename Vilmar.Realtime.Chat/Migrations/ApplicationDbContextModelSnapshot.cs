@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Vilmar.Realtime.Chat.Context;
+using Vilmar.Realtime.Chat.Areas.Context;
+
 
 #nullable disable
 

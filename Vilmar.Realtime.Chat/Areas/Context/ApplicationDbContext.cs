@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Vilmar.Realtime.Chat.Areas.Message;
 
-namespace Vilmar.Realtime.Chat.Context
+namespace Vilmar.Realtime.Chat.Areas.Context
 {
     public class ApplicationDbContext : IdentityDbContext
     {

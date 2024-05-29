@@ -6,9 +6,9 @@ using Microsoft.Net.Http.Headers;
 using System.Reflection;
 using Vilmar.Realtime.Chat.Areas.Bot;
 using Vilmar.Realtime.Chat.Areas.Chat;
+using Vilmar.Realtime.Chat.Areas.Context;
 using Vilmar.Realtime.Chat.Areas.Identity;
 using Vilmar.Realtime.Chat.Areas.Message;
-using Vilmar.Realtime.Chat.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

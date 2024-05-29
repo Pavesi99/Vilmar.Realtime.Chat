@@ -3,7 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Vilmar.Realtime.Chat.Context;
+using Vilmar.Realtime.Chat.Areas.Context;
+
 
 #nullable disable
 

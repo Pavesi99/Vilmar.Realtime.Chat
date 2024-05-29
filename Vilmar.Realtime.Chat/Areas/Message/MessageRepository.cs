@@ -1,5 +1,5 @@
-﻿using Vilmar.Realtime.Chat.Areas.Generic;
-using Vilmar.Realtime.Chat.Context;
+﻿using Vilmar.Realtime.Chat.Areas.Context;
+using Vilmar.Realtime.Chat.Areas.Generic;
 
 namespace Vilmar.Realtime.Chat.Areas.Message
 {

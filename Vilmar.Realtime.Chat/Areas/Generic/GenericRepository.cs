@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Vilmar.Realtime.Chat.Context;
+using Vilmar.Realtime.Chat.Areas.Context;
 
 namespace Vilmar.Realtime.Chat.Areas.Generic
 {
