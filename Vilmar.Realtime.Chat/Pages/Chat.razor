@@ -1,4 +1,4 @@
-﻿@page "/Chat"        
+﻿@page "/Chat"
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.SignalR.Client;
 @using Vilmar.Realtime.Chat.Areas.Bot
@@ -6,7 +6,7 @@
 @using Vilmar.Realtime.Chat.Areas.Message
 @inject IMessageRepository messageRepository;
 @inject BotService botService;
-@inject AuthenticationStateProvider  authStateProvider;
+@inject AuthenticationStateProvider authStateProvider;
 @inject UserManager<IdentityUser> UserManager;
 
 <PageTitle>Chat</PageTitle>
@@ -17,11 +17,11 @@
 <input @bind-value=message />
 <button @onclick="() => SendMessage()">Enviar</button>
 
-<h5>Messages</h5> 
-@foreach(var message in messages)
+<h5>Messages</h5>
+@foreach (var message in messages)
 {
     <p>@message.UserId at @message.PostedData: @message.Text</p>
-    
+
 }
 
 @code {
@@ -37,9 +37,20 @@
         {
             user = await UserManager.FindByNameAsync(userIdentity.Name);
         }
-        var uri = "https://localhost:7039/chat";
+        var uri = "https://vilmar.realtime.chat/chat";
 
-        await using var connection = new HubConnectionBuilder().WithUrl(uri).Build();
+        await using var connection = new HubConnectionBuilder().WithUrl(uri, (opts) =>
+        {
+        opts.HttpMessageHandlerFactory = (message) =>
+        {
+            if (message is HttpClientHandler clientHandler)
+            // always verify the SSL certificate
+            clientHandler.ServerCertificateCustomValidationCallback +=
+                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            return message;
+            };
+        })
+        .Build();
 
         await connection.StartAsync();
 
