@@ -1,40 +1,63 @@
 ﻿@page "/Chat"        
+@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.SignalR.Client;
+@using Vilmar.Realtime.Chat.Areas.Bot
+@using Vilmar.Realtime.Chat.Areas.Chat;
+@using Vilmar.Realtime.Chat.Areas.Message
+@inject MessageRepository messageRepository;
+@inject BotService botService;
+@inject AuthenticationStateProvider  authStateProvider;
+@inject UserManager<IdentityUser> UserManager;
 
 <PageTitle>Chat</PageTitle>
 
 <h1>Chats</h1>
 
 <label>Envie uma mensagem</label>
-<input />
-<button onclick=@SendMessage>Enviar</button>
+<input @bind-value=message />
+<button @onclick="() => SendMessage()">Enviar</button>
 
 <h5>Messages</h5> 
-<p>@time</p>
+@foreach(var message in messages)
+{
+    <p>@message.UserId at @message.PostedData: @message.Text</p>
+    
+}
 
 @code {
-    private DateTime time;
-
+    private IEnumerable<MessageModel> messages;
+    private string message = "";
+    private IdentityUser? user;
     protected override async Task OnInitializedAsync()
     {
-
+        messages = new List<MessageModel>();
+        var authState = await authStateProvider.GetAuthenticationStateAsync();
+        var userIdentity = authState.User.Identity;
+        if (userIdentity.IsAuthenticated)
+        {
+            user = await UserManager.FindByNameAsync(userIdentity.Name);
+        }
         var uri = "https://localhost:7039/chat";
 
         await using var connection = new HubConnectionBuilder().WithUrl(uri).Build();
 
         await connection.StartAsync();
 
-        await foreach (var date in connection.StreamAsync<DateTime>("Streaming"))
+        await foreach (var date in connection.StreamAsync<IEnumerable<MessageModel>>("Streaming"))
         {
-            time = date;
-            Console.WriteLine(date);
+            messages = date;
             StateHasChanged();
-
         }
     }
 
-    public void SendMessage()
+    public async void SendMessage()
     {
-        
+        if (botService.VerifyCommand(message))
+        {
+            await botService.SendStock(message.Substring(7));
+            return;
+        }
+        await messageRepository.Add(new MessageModel() { ChatId = 0, Text = message, UserId = user?.Id ?? "0" });
+        StateHasChanged();
     }
 }

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vilmar.Realtime.Chat", "Vilmar.Realtime.Chat\Vilmar.Realtime.Chat.csproj", "{7B91FD25-1D09-453B-8DCA-1640BB26A0B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilmar.Realtime.Chat.Tests", "Vilmar.Realtime.Chat.Tests\Vilmar.Realtime.Chat.Tests.csproj", "{BD3D4182-F71C-4FC3-96F1-AF756B340AA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7B91FD25-1D09-453B-8DCA-1640BB26A0B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B91FD25-1D09-453B-8DCA-1640BB26A0B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B91FD25-1D09-453B-8DCA-1640BB26A0B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3D4182-F71C-4FC3-96F1-AF756B340AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3D4182-F71C-4FC3-96F1-AF756B340AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3D4182-F71C-4FC3-96F1-AF756B340AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3D4182-F71C-4FC3-96F1-AF756B340AA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
