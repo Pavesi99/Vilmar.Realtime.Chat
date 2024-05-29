@@ -12,7 +12,6 @@ using Vilmar.Realtime.Chat.Areas.Message;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
@@ -33,8 +32,8 @@ builder.Services.AddMassTransit(busConfigurator =>
     busConfigurator.UsingRabbitMq((context, busFactoryConfigurator) =>
     {
         busFactoryConfigurator.Host("localhost", "/", h => {
-            h.Username("guest");
-            h.Password("guest");
+            h.Username(builder.Configuration["RabbitMQ:username"]);
+            h.Password(builder.Configuration["RabbitMQ:password"]);
         });
         busFactoryConfigurator.ConfigureEndpoints(context);
     });
@@ -42,7 +41,7 @@ builder.Services.AddMassTransit(busConfigurator =>
 
 builder.Services.AddHttpClient("stooq", httpClient =>
 {
-    httpClient.BaseAddress = new Uri("https://stooq.com/q/l");
+    httpClient.BaseAddress = new Uri(builder.Configuration["stooq:url"]);
      
     httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
 });
@@ -50,7 +49,6 @@ builder.Services.AddHttpClient("stooq", httpClient =>
 var app = builder.Build();
 app.MapHub<ChatHub>("/chat");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -58,7 +56,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
