@@ -15,12 +15,7 @@ namespace Vilmar.Realtime.Chat.Areas.Bot
         }
 
         public bool VerifyQuote(string quote) => !quote.Contains("N/D");
-        public bool IsStockCall(string command) => string.Compare(command, 0, "/stock=", 0, 7) == 0;
-
-        public bool VerifyCommand(string command)
-        {
-            return IsStockCall(command);
-        }
+   
         public async Task SendStock(string stockName)
         {
             var quote = await GetQuote(stockName);

@@ -41,14 +41,14 @@
 
         await using var connection = new HubConnectionBuilder().WithUrl(uri, (opts) =>
         {
-        opts.HttpMessageHandlerFactory = (message) =>
+            opts.HttpMessageHandlerFactory = (message) =>
         {
             if (message is HttpClientHandler clientHandler)
-            // always verify the SSL certificate
-            clientHandler.ServerCertificateCustomValidationCallback +=
+                // always verify the SSL certificate
+                clientHandler.ServerCertificateCustomValidationCallback +=
                 (sender, certificate, chain, sslPolicyErrors) => { return true; };
             return message;
-            };
+        };
         })
         .Build();
 
@@ -63,12 +63,19 @@
 
     public async void SendMessage()
     {
-        if (botService.VerifyCommand(message))
+        var messageModel = new MessageModel() { ChatId = 0, Text = message, UserId = user?.Id ?? "0" };
+        if (messageModel.IsStockCall())
         {
-            await botService.SendStock(message.Substring(7));
+            await botService.SendStock(messageModel.GetStock());
             return;
         }
-        await messageRepository.Add(new MessageModel() { ChatId = 0, Text = message, UserId = user?.Id ?? "0" });
+
+        if (messageModel.IsCall())
+        {
+            messageModel.UserId = "bot";
+            messageModel.Text = $"Command: {messageModel.Text} is invalid. Should be /stock=stock_price";
+        }
+        await messageRepository.Add(messageModel);
         StateHasChanged();
     }
 }
