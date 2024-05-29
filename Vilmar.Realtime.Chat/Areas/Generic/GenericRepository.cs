@@ -1,9 +1,8 @@
-﻿using Crm.Domain.Interfaces.Repository;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Vilmar.Realtime.Chat.Context;
 
-namespace WebApi.Molde.Infra.Repository
+namespace Vilmar.Realtime.Chat.Areas.Generic
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

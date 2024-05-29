@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using RabbitMQ.Client.Events;
-using RabbitMQ.Client;
 using Vilmar.Realtime.Chat.Areas.Message;
 
 namespace Vilmar.Realtime.Chat.Areas.Chat
 {
     public class ChatHub : Hub
     {
-        private readonly MessageRepository messageRepository;
+        private readonly IMessageRepository messageRepository;
 
-        public ChatHub(MessageRepository messageRepository)
+        public ChatHub(IMessageRepository messageRepository)
         {
             this.messageRepository = messageRepository;
         }

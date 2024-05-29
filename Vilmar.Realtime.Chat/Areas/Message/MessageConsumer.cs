@@ -4,9 +4,9 @@ namespace Vilmar.Realtime.Chat.Areas.Message
 {
     public class MessageConsumer : IConsumer<IMessageCreated>
     {
-        private readonly MessageRepository messageRepository;
+        private readonly IMessageRepository messageRepository;
 
-        public MessageConsumer(MessageRepository messageRepository)
+        public MessageConsumer(IMessageRepository messageRepository)
         {
             this.messageRepository = messageRepository;
         }

@@ -1,18 +1,9 @@
-﻿using CsvHelper;
-using MassTransit;
-using System;
-using System.Formats.Asn1;
-using System.Globalization;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection.PortableExecutable;
-using System.Text.Json;
+﻿using MassTransit;
 using Vilmar.Realtime.Chat.Areas.Message;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Vilmar.Realtime.Chat.Areas.Bot
 {
-    public class BotService
+    public class BotService : IBotService
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly IPublishEndpoint publishEndpoint;
@@ -23,8 +14,8 @@ namespace Vilmar.Realtime.Chat.Areas.Bot
             this.publishEndpoint = publishEndpoint;
         }
 
-        private bool VerifyQuote(string quote) => !quote.Contains("N/D");
-        private  bool IsStockCall(string command) => string.Compare(command, 0, "/stock=", 0, 7) == 0;
+        public bool VerifyQuote(string quote) => !quote.Contains("N/D");
+        public bool IsStockCall(string command) => string.Compare(command, 0, "/stock=", 0, 7) == 0;
 
         public bool VerifyCommand(string command)
         {

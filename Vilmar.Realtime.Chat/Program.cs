@@ -23,7 +23,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddScoped<MessageRepository>();
+builder.Services.AddScoped<IMessageRepository,MessageRepository>();
 builder.Services.AddScoped<BotService>();
 
 builder.Services.AddMassTransit(busConfigurator =>
@@ -48,7 +48,6 @@ builder.Services.AddHttpClient("stooq", httpClient =>
 });
 
 var app = builder.Build();
-//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.MapHub<ChatHub>("/chat");
 
 // Configure the HTTP request pipeline.
