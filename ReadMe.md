@@ -11,3 +11,5 @@ To run the local application in containers, you will need to download and instal
 	- To run the Web Application, navigate to http://localhost:7039
 
 to stop the execution of the containers, type "docker-compose down"
+
+ - You can also run everything at Visual Studio with docker-compose profile
