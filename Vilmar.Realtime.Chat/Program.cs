@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using System.Reflection;
+using Vilmar.Realtime.Chat;
 using Vilmar.Realtime.Chat.Areas.Bot;
 using Vilmar.Realtime.Chat.Areas.Chat;
 using Vilmar.Realtime.Chat.Areas.Context;
@@ -52,6 +53,7 @@ app.MapHub<ChatHub>("/chat");
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.ApplyMigrations();
 }
 else
 {
